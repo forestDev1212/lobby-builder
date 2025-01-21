@@ -9,7 +9,7 @@ import {
     generateObject,
     truncateToCompleteSentence,
 } from "@elizaos/core";
-import { Scraper } from "agent-twitter-client";
+import { TwitterClient } from "@elizaos/client-twitter";
 import { tweetTemplate } from "../templates";
 import { isTweetContent, TweetSchema } from "../types";
 
@@ -60,7 +60,7 @@ async function composeTweet(
     }
 }
 
-async function sendTweet(twitterClient: Scraper, content: string) {
+async function sendTweet(twitterClient: TwitterClient, content: string) {
     const result = await twitterClient.sendTweet(content);
 
     const body = await result.json();
@@ -90,7 +90,7 @@ async function postTweet(
 ): Promise<boolean> {
     try {
         const twitterClient = runtime.clients.twitter?.client?.twitterClient;
-        const scraper = twitterClient || new Scraper();
+        const client = twitterClient || new TwitterClient();
 
         if (!twitterClient) {
             const username = runtime.getSetting("TWITTER_USERNAME");
@@ -105,8 +105,8 @@ async function postTweet(
                 return false;
             }
             // Login with credentials
-            await scraper.login(username, password, email, twitter2faSecret);
-            if (!(await scraper.isLoggedIn())) {
+            await client.login(username, password, email, twitter2faSecret);
+            if (!(await client.isLoggedIn())) {
                 elizaLogger.error("Failed to login to Twitter");
                 return false;
             }
@@ -117,18 +117,18 @@ async function postTweet(
 
         try {
             if (content.length > DEFAULT_MAX_TWEET_LENGTH) {
-                const noteTweetResult = await scraper.sendNoteTweet(content);
+                const noteTweetResult = await client.sendNoteTweet(content);
                 if (
                     noteTweetResult.errors &&
                     noteTweetResult.errors.length > 0
                 ) {
                     // Note Tweet failed due to authorization. Falling back to standard Tweet.
-                    return await sendTweet(scraper, content);
+                    return await sendTweet(client, content);
                 } else {
                     return true;
                 }
             } else {
-                return await sendTweet(scraper, content);
+                return await sendTweet(client, content);
             }
         } catch (error) {
             throw new Error(`Note Tweet failed: ${error}`);
