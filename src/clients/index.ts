@@ -3,14 +3,12 @@ import { Character, IAgentRuntime } from "@elizaos/core";
 
 export async function initializeTwitterClient(
   character: Character,
-  runtime: IAgentRuntime
+  runtime: IAgentRuntime,
 ) {
-  const clientTypes = character.clients?.map((str) => str.toLowerCase()) || [];
+  const clients = [];
 
-  if (clientTypes.includes("twitter")) {
-    return await TwitterClientInterface.start(runtime);
-  }
+  const twitterClients = TwitterClientInterface.start(runtime);
+  clients.push(twitterClients);
 
-  // Return null or handle cases where the Twitter client is not requested
-  return null;
+  return clients;
 }
