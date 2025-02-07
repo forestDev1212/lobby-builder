@@ -1,0 +1,3 @@
+[submodule "packages/plugin-memeooorr"]
+	path = packages/plugin-memeooorr
+	url = https://github.com/keshav1998/plugin-memeooorr.git
