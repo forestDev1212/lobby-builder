@@ -1,109 +1,148 @@
+/**
+ * Minimal "main.ts" that runs an autonomous agent
+ * using only the memeoorPlugin.
+ */
 import { DirectClient } from "@elizaos/client-direct";
 import {
+  IAgentRuntime,
   AgentRuntime,
   elizaLogger,
-  settings,
-  stringToUuid,
   type Character,
+  type Memory,
+  stringToUuid,
+  settings,
 } from "@elizaos/core";
-import { bootstrapPlugin } from "@elizaos/plugin-bootstrap";
-import { createNodePlugin } from "@elizaos/plugin-node";
-import fs from "fs";
-import net from "net";
+import { ModelProviderName } from "@elizaos/core";
 import path from "path";
+import net from "net";
 import { fileURLToPath } from "url";
+import { memeoorPlugin } from "/Users/tron/repos/agents-fun-eliza/packages/plugin-memeooorr/src/index.ts";
+import { initializeDatabase } from "./database/index.ts";
 import { initializeDbCache } from "./cache/index.ts";
-import { character } from "./character.ts";
-import { startChat } from "./chat/index.ts";
-import { initializeTwitterClient } from "./clients/index.ts";
 import {
   getTokenForProvider,
   loadCharacters,
   parseArguments,
 } from "./config/index.ts";
-import { initializeDatabase } from "./database/index.ts";
+import { ACTIONS } from "../packages/plugin-memeooorr/src/config.ts";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+// const __filename = fileURLToPath("./data");
+const __dirname = path.dirname("./data");
 
-export const wait = (minTime: number = 1000, maxTime: number = 3000) => {
-  const waitTime =
-    Math.floor(Math.random() * (maxTime - minTime + 1)) + minTime;
-  return new Promise((resolve) => setTimeout(resolve, waitTime));
-};
+// interface ElizaTestGenerator extend IText
 
-let nodePlugin: any | undefined;
-
-export function createAgent(
+/**
+ * A minimal function to create the AgentRuntime with our single plugin.
+ */
+function createAgent(
   character: Character,
   db: any,
   cache: any,
   token: string,
-) {
-  elizaLogger.success(
-    elizaLogger.successesTitle,
-    "Creating runtime for character",
-    character.name,
-  );
+): AgentRuntime {
+  elizaLogger.info("Creating agent runtime for", character.name);
 
-  nodePlugin ??= createNodePlugin();
-
-  return new AgentRuntime({
+  // Create the runtime using only the memeoorPlugin
+  const runtime = new AgentRuntime({
     databaseAdapter: db,
-    token,
-    modelProvider: character.modelProvider,
-    evaluators: [],
+    token: token,
     character,
-    plugins: [
-      bootstrapPlugin,
-      nodePlugin,
-      //TODO: Add memeooorr plugin
-    ].filter(Boolean),
+    modelProvider: character.modelProvider,
+    plugins: [memeoorPlugin],
+    evaluators: [],
+    cacheManager: cache,
     providers: [],
     actions: [],
     services: [],
     managers: [],
-    cacheManager: cache,
   });
+
+  return runtime;
 }
 
-async function startAgent(character: Character, directClient: DirectClient) {
+/**
+ * Runs the agent in "autonomous" mode. In practice,
+ * you can do any scheduling/interval tasks you want here.
+ */
+async function runAgentAutonomously(
+  runtime: AgentRuntime,
+  directClient: DirectClient,
+) {
+  elizaLogger.success("Running Memeoor Agent in autonomous mode...");
+
+  // One naive example: periodically attempt an action from the plugin.
+  // If your plugin has logic that triggers automatically,
+  // you can simply keep the agent "alive" so it can do its own stuff.
+
+  // For demonstration, let's do a simple setInterval that:
+  // 1) Waits randomly
+  // 2) Calls plugin actions
+
+  directClient.registerAgent(runtime);
   try {
-    character.id ??= stringToUuid(character.name);
-    character.username ??= character.name;
+    elizaLogger.log(`[First-Loop] Memeoor is deciding what to do...`);
 
-    const token = getTokenForProvider(character.modelProvider, character);
-    const dataDir = path.join(__dirname, "../data");
+    // If you need to store an event in memory for the plugin:
+    const firstMem: Memory = {
+      id: stringToUuid(Date.now().toString()),
+      content: { text: "Periodic check from Memeoor.", action: ACTIONS.START },
+      roomId: stringToUuid("memeoor-room-1"),
+      userId: stringToUuid("memeoor-user-1"),
+      agentId: runtime.agentId,
+    };
 
-    if (!fs.existsSync(dataDir)) {
-      fs.mkdirSync(dataDir, { recursive: true });
-    }
+    // This calls the agent to process something.
+    // If your plugin automatically runs actions,
+    // you might just store the memory.
+    // Or you might directly call an action from the plugin.
+    //
+    // If "memeoorPlugin" runs on new messages, do something like:
+    await runtime.messageManager.createMemory(firstMem);
 
-    const db = initializeDatabase(dataDir);
+    const action1 = runtime.plugins[0].actions[0];
 
-    await db.init();
-
-    const cache = initializeDbCache(character, db);
-    const runtime = createAgent(character, db, cache, token);
-
-    await runtime.initialize();
-
-    runtime.clients = await initializeTwitterClient(character, runtime);
-
-    directClient.registerAgent(runtime);
-
-    // report to console
-    elizaLogger.debug(`Started ${character.name} as ${runtime.agentId}`);
-
-    return runtime;
-  } catch (error) {
-    elizaLogger.error(
-      `Error starting agent for character ${character.name}:`,
-      error,
-    );
-    console.error(error);
-    throw error;
+    elizaLogger.log(`[First-Loop] Memeoor is deciding what to do...`);
+    await action1.handler(runtime, firstMem, null, null, null);
+    // await action2.handler(iRun, firstMem, null, null, null);
+  } catch (err) {
+    elizaLogger.error("Error in autonomous loop:", err);
   }
+  const intervalMs = 60_00000; // 1 minute
+
+  setInterval(async () => {
+    try {
+      elizaLogger.log(`[Auto-Loop] Memeoor is deciding what to do...`);
+
+      // If you need to store an event in memory for the plugin:
+      const firstMem: Memory = {
+        id: stringToUuid(Date.now().toString()),
+        content: { text: "Periodic check from Memeoor.", action: "START" },
+        roomId: stringToUuid("memeoor-room-1"),
+        userId: stringToUuid("memeoor-user-1"),
+        agentId: runtime.agentId,
+      };
+
+      // This calls the agent to process something.
+      // If your plugin automatically runs actions,
+      // you might just store the memory.
+      // Or you might directly call an action from the plugin.
+      //
+      // If "memeoorPlugin" runs on new messages, do something like:
+      await runtime.messageManager.createMemory(firstMem);
+      const iRun: IAgentRuntime = runtime;
+
+      const action1 = runtime.plugins[0].actions[0];
+      const action2 = runtime.plugins[0].actions[1];
+
+      elizaLogger.log(`[Auto-Loop] Memeoor is deciding what to do...`);
+      await action1.handler(iRun, firstMem, null, null, null);
+      // await action2.handler(iRun, firstMem, null, null, null);
+    } catch (err) {
+      elizaLogger.error("Error in autonomous loop:", err);
+    }
+  }, intervalMs);
+
+  // Keep the process alive indefinitely.
 }
 
 const checkPortAvailable = (port: number): Promise<boolean> => {
@@ -125,53 +164,90 @@ const checkPortAvailable = (port: number): Promise<boolean> => {
   });
 };
 
-const startAgents = async () => {
-  const directClient = new DirectClient();
-  let serverPort = parseInt(settings.SERVER_PORT || "3000");
-  const args = parseArguments();
-
-  let charactersArg = args.characters || args.character;
-  let characters = [character];
-
-  console.log("charactersArg", charactersArg);
-  if (charactersArg) {
-    characters = await loadCharacters(charactersArg);
-  }
-  console.log("characters", characters);
+/**
+ * Main entry point: create & initialize the agent, then start the loop.
+ */
+async function main() {
   try {
-    for (const character of characters) {
-      await startAgent(character, directClient as DirectClient);
+    const directClient = new DirectClient();
+    const args = parseArguments();
+    let serverPort = parseInt(settings.SERVER_PORT || "3000");
+
+    while (!(await checkPortAvailable(serverPort))) {
+      elizaLogger.warn(
+        `Port ${serverPort} is in use, trying ${serverPort + 1}`,
+      );
+      serverPort++;
     }
+
+    let charactersArg = args.characters || args.character;
+
+    let characters: Character[] = [];
+
+    console.log("charactersArgs", charactersArg);
+    if (charactersArg) {
+      characters = await loadCharacters(charactersArg);
+    }
+    console.log("characters", characters);
+
+    if (characters.length === 0) {
+      elizaLogger.error("No characters loaded, exiting...");
+      process.exit(1);
+    }
+
+    const character = characters[0];
+
+    character.id ??= stringToUuid(character.name);
+    character.username ??= character.name;
+
+    character.settings.secrets ??= {
+      OPEN_API_KEY: process.env.OPEN_API_KEY,
+      TWITTER_USERNAME: process.env.TWITTER_USERNAME,
+      TWITTER_PASSWORD: process.env.TWITTER_PASSWORD,
+      VIEM_BASE_PRIVATE_KEY: process.env.VIEM_BASE_PRIVATE_KEY,
+      VIEM_BASE_RPC_URL: process.env.VIEM_BASE_RPC_URL,
+      BUNDLER_BASE_URL: process.env.BUNDLER_BASE_URL,
+      BUNDLER_CELO_URL: process.env.BUNDLER_CELO_URL,
+      MEME_FACTORY_CONTRACT: process.env.MEME_FACTORY_CONTRACT,
+      SAFE_CONTRACT: process.env.SAFE_CONTRACT,
+      PROXY_FACTORY_CONTRACT: process.env.PROXY_FACTORY_CONTRACT,
+      SUBGRAPH_URL: process.env.SUBGRAPH_URL,
+    };
+
+    character.modelProvider = ModelProviderName.OPENAI;
+    character.settings.model = "gpt-4o-mini";
+    character.settings.modelConfig = {
+      temperature: 0.5,
+      maxInputTokens: 2000,
+    };
+
+    const token = getTokenForProvider(character.modelProvider, character);
+
+    elizaLogger.info("token initialized");
+
+    const dataDir = path.join(__dirname, "data");
+    const db = initializeDatabase(dataDir);
+    elizaLogger.info("Database initialized");
+
+    await db.init();
+
+    const cache = initializeDbCache(character, db);
+
+    const runtime = createAgent(character, db, cache, token);
+
+    // Initialize the agent (loads plugin setup, etc.)
+    await runtime.initialize();
+
+    directClient.start(serverPort);
+
+    // Start the “autonomous” loop or scheduling
+    await runAgentAutonomously(runtime, directClient as DirectClient);
+
+    elizaLogger.success(`Agent ${runtime.agentId} initialized and running!`);
   } catch (error) {
-    elizaLogger.error("Error starting agents:", error);
+    elizaLogger.error("Failed to start Memeoor Agent:", error);
+    process.exit(1);
   }
+}
 
-  while (!(await checkPortAvailable(serverPort))) {
-    elizaLogger.warn(`Port ${serverPort} is in use, trying ${serverPort + 1}`);
-    serverPort++;
-  }
-
-  // upload some agent functionality into directClient
-  directClient.startAgent = async (character: Character) => {
-    // wrap it so we don't have to inject directClient later
-    return startAgent(character, directClient);
-  };
-
-  directClient.start(serverPort);
-
-  if (serverPort !== parseInt(settings.SERVER_PORT || "3000")) {
-    elizaLogger.log(`Server started on alternate port ${serverPort}`);
-  }
-
-  const isDaemonProcess = process.env.DAEMON_PROCESS === "true";
-  if (!isDaemonProcess) {
-    elizaLogger.log("Chat started. Type 'exit' to quit.");
-    const chat = startChat(characters);
-    chat();
-  }
-};
-
-startAgents().catch((error) => {
-  elizaLogger.error("Unhandled error in startAgents:", error);
-  process.exit(1);
-});
+void main();
