@@ -1,5 +1,5 @@
 # Use a specific Node.js version for better reproducibility
-FROM node:23.3.0-slim AS builder
+FROM node:23.6.0-slim AS builder
 
 # Install pnpm globally and install necessary build tools
 RUN npm install -g pnpm@9.15.1 && \
@@ -18,10 +18,13 @@ WORKDIR /app
 COPY package.json ./
 COPY pnpm-lock.yaml ./
 COPY tsconfig.json ./
+COPY pnpm-workspace.yaml ./
 
 # Copy the rest of the application code
 COPY ./src ./src
+COPY ./packages ./packages
 COPY ./characters ./characters
+COPY ./scripts ./scripts
 
 # Install dependencies and build the project
 RUN pnpm install --frozen-lockfile
@@ -36,7 +39,7 @@ RUN mkdir -p /app/dist && \
 USER node
 
 # Create a new stage for the final image
-FROM node:23.3.0-slim
+FROM node:23.6.0-slim
 
 # Install runtime dependencies if needed
 RUN npm install -g pnpm@9.15.1
@@ -51,11 +54,17 @@ WORKDIR /app
 COPY --from=builder /app/package.json /app/
 COPY --from=builder /app/node_modules /app/node_modules
 COPY --from=builder /app/src /app/src
+COPY --from=builder /app/packages /app/packages
 COPY --from=builder /app/characters /app/characters
 COPY --from=builder /app/dist /app/dist
 COPY --from=builder /app/tsconfig.json /app/
 COPY --from=builder /app/pnpm-lock.yaml /app/
+COPY --from=builder /app/pnpm-workspace.yaml /app/
+
+RUN mkdir -p /app/data && \
+    chown -R node:node /app && \
+    chmod -R 755 /app
 
 EXPOSE 3000
 # Set the command to run the application
-CMD ["pnpm", "start", "--non-interactive"]
+CMD ["pnpm", "start", "--character=characters/eliza.character.json"]

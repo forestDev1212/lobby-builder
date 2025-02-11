@@ -15,7 +15,7 @@
     "emitDeclarationOnly": true,
     "resolveJsonModule": true,
     "noImplicitAny": false,
-    "allowJs": true,
+    "allowJs": false,
     "checkJs": false,
     "noEmitOnError": false,
     "moduleDetection": "force",

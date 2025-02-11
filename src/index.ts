@@ -16,7 +16,7 @@ import { ModelProviderName } from "@elizaos/core";
 import path from "path";
 import net from "net";
 import { fileURLToPath } from "url";
-import { memeoorPlugin } from "/Users/tron/repos/agents-fun-eliza/packages/plugin-memeooorr/src/index.ts";
+import { memeoorPlugin } from "../packages/plugin-memeooorr/src/index.ts";
 import { initializeDatabase } from "./database/index.ts";
 import { initializeDbCache } from "./cache/index.ts";
 import {
@@ -25,9 +25,17 @@ import {
   parseArguments,
 } from "./config/index.ts";
 import { ACTIONS } from "../packages/plugin-memeooorr/src/config.ts";
+// import { getProtocolKit } from "../packages/plugin-memeooorr/src/providers/safeaccount.ts";
+import Safe from "@safe-global/protocol-kit";
 
 // const __filename = fileURLToPath("./data");
 const __dirname = path.dirname("./data");
+
+// getProtocolKit(
+//   process.env.BASE_LEDGER_RPC,
+//   process.env.SAFE_ADDRESS as `0x${string}`,
+//   process.env.AGENT_EOA_PK as `0x${string}`,
+// );
 
 // interface ElizaTestGenerator extend IText
 
@@ -100,10 +108,11 @@ async function runAgentAutonomously(
     await runtime.messageManager.createMemory(firstMem);
 
     const action1 = runtime.plugins[0].actions[0];
+    const action2 = runtime.plugins[0].actions[1];
 
     elizaLogger.log(`[First-Loop] Memeoor is deciding what to do...`);
-    await action1.handler(runtime, firstMem, null, null, null);
-    // await action2.handler(iRun, firstMem, null, null, null);
+    // await action1.handler(runtime, firstMem, null, null, null);
+    await action2.handler(runtime, firstMem, null, null, null);
   } catch (err) {
     elizaLogger.error("Error in autonomous loop:", err);
   }
@@ -169,6 +178,12 @@ const checkPortAvailable = (port: number): Promise<boolean> => {
  */
 async function main() {
   try {
+    console.log(Safe.init);
+    const protocolKit = await Safe.init({
+      provider: process.env.BASE_LEDGER_RPC,
+      signer: process.env.AGENT_EOA_PK,
+      safeAddress: process.env.SAFE_ADDRESS,
+    });
     const directClient = new DirectClient();
     const args = parseArguments();
     let serverPort = parseInt(settings.SERVER_PORT || "3000");
@@ -230,6 +245,7 @@ async function main() {
     elizaLogger.info("Database initialized");
 
     await db.init();
+    console.log("Creating protocol");
 
     const cache = initializeDbCache(character, db);
 
@@ -245,6 +261,7 @@ async function main() {
 
     elizaLogger.success(`Agent ${runtime.agentId} initialized and running!`);
   } catch (error) {
+    console.log(error);
     elizaLogger.error("Failed to start Memeoor Agent:", error);
     process.exit(1);
   }
