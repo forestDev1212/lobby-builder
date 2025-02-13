@@ -27,20 +27,8 @@ import {
   loadCharacters,
   parseArguments,
 } from "./config/index.ts";
-// import { ACTIONS } from "plugin-memeooorr";
-// import { getProtocolKit } from "../../packages/plugin-memeooorr/src/providers/safeaccount.ts";
-// import Safe from "@safe-global/protocol-kit";
 
-// const __filename = fileURLToPath("./data");
 const __dirname = path.dirname("./data");
-
-// getProtocolKit(
-//   process.env.BASE_LEDGER_RPC,
-//   process.env.SAFE_ADDRESS as `0x${string}`,
-//   process.env.AGENT_EOA_PK as `0x${string}`,
-// );
-
-// interface ElizaTestGenerator extend IText
 
 /**
  * A minimal function to create the AgentRuntime with our single plugin.
@@ -106,11 +94,24 @@ async function runAgentAutonomously(
     const plugin = runtime.plugins[0] as Plugin;
     const elizaactions: Action[] = plugin.actions as Action[];
 
-    const action2 = elizaactions[1] as Action;
+    const tweetAction = elizaactions[0] as Action;
+    const memeInteractAction = elizaactions[1] as Action;
 
     elizaLogger.log(`[First-Loop] Memeoor is deciding what to do...`);
-    // await action1.handler(runtime, firstMem, null, null, null);
-    // await action2.handler(runtime, firstMem, undefined, undefined, undefined);
+    await tweetAction.handler(
+      runtime,
+      firstMem,
+      undefined,
+      undefined,
+      undefined,
+    );
+    await memeInteractAction.handler(
+      runtime,
+      firstMem,
+      undefined,
+      undefined,
+      undefined,
+    );
   } catch (err) {
     elizaLogger.error("Error in autonomous loop:", err);
   }
@@ -135,16 +136,29 @@ async function runAgentAutonomously(
       // Or you might directly call an action from the plugin.
       //
       // If "memeoorPlugin" runs on new messages, do something like:
-      await runtime.messageManager.createMemory(firstMem);
+      await runtime.databaseAdapter.createMemory(firstMem, "start", false);
 
       const plugin = runtime.plugins[0] as Plugin;
       const elizaactions: Action[] = plugin.actions as Action[];
 
-      const action2 = elizaactions[1] as Action;
+      const tweetAction = elizaactions[0] as Action;
+      const memeInteractAction = elizaactions[1] as Action;
 
       elizaLogger.log(`[Auto-Loop] Memeoor is deciding what to do...`);
-      // await action1.handler(iRun, firstMem, null, null, null);
-      // await action2.handler(iRun, firstMem, null, null, null);
+      await tweetAction.handler(
+        runtime,
+        firstMem,
+        undefined,
+        undefined,
+        undefined,
+      );
+      await memeInteractAction.handler(
+        runtime,
+        firstMem,
+        undefined,
+        undefined,
+        undefined,
+      );
     } catch (err) {
       elizaLogger.error("Error in autonomous loop:", err);
     }
@@ -214,14 +228,12 @@ export async function main() {
       OPEN_API_KEY: process.env.OPEN_API_KEY as string,
       TWITTER_USERNAME: process.env.TWITTER_USERNAME as string,
       TWITTER_PASSWORD: process.env.TWITTER_PASSWORD as string,
-      VIEM_BASE_PRIVATE_KEY: process.env.VIEM_BASE_PRIVATE_KEY as string,
-      VIEM_BASE_RPC_URL: process.env.VIEM_BASE_RPC_URL as string,
-      BUNDLER_BASE_URL: process.env.BUNDLER_BASE_URL as string,
-      BUNDLER_CELO_URL: process.env.BUNDLER_CELO_URL as string,
+      AGENT_EOA_PK: process.env.AGENT_EOA_PK as string,
+      BASE_LEDGER_RPC: process.env.BASE_LEDGER_RPC as string,
       MEME_FACTORY_CONTRACT: process.env.MEME_FACTORY_CONTRACT as string,
-      SAFE_CONTRACT: process.env.SAFE_CONTRACT as string,
-      PROXY_FACTORY_CONTRACT: process.env.PROXY_FACTORY_CONTRACT as string,
+      SAFE_ADDRESS: process.env.SAFE_CONTRACT as string,
       SUBGRAPH_URL: process.env.SUBGRAPH_URL as string,
+      MEME_SUBGRAPH_URl: process.env.MEME_SUBGRAPH_URl as string,
     };
 
     character.modelProvider = ModelProviderName.OPENAI;
@@ -236,7 +248,7 @@ export async function main() {
       character,
     ) as string;
 
-    elizaLogger.info("token initialized");
+    elizaLogger.success("token initialized");
 
     const dataDir = path.join(__dirname, "data");
     const db = initializeDatabase(dataDir);
