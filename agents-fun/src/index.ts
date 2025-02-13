@@ -4,11 +4,14 @@
  */
 import { DirectClient } from "@elizaos/client-direct";
 import {
-  IAgentRuntime,
+  // IAgentRuntime,
+  type Action,
+  type Plugin,
   AgentRuntime,
   elizaLogger,
   type Character,
   type Memory,
+  MemoryManager,
   stringToUuid,
   settings,
 } from "@elizaos/core";
@@ -16,7 +19,7 @@ import { ModelProviderName } from "@elizaos/core";
 import path from "path";
 import net from "net";
 import { fileURLToPath } from "url";
-import { memeoorPlugin } from "../packages/plugin-memeooorr/src/index.ts";
+import { memeoorPlugin } from "plugin-memeooorr";
 import { initializeDatabase } from "./database/index.ts";
 import { initializeDbCache } from "./cache/index.ts";
 import {
@@ -24,9 +27,9 @@ import {
   loadCharacters,
   parseArguments,
 } from "./config/index.ts";
-import { ACTIONS } from "../packages/plugin-memeooorr/src/config.ts";
-// import { getProtocolKit } from "../packages/plugin-memeooorr/src/providers/safeaccount.ts";
-import Safe from "@safe-global/protocol-kit";
+// import { ACTIONS } from "plugin-memeooorr";
+// import { getProtocolKit } from "../../packages/plugin-memeooorr/src/providers/safeaccount.ts";
+// import Safe from "@safe-global/protocol-kit";
 
 // const __filename = fileURLToPath("./data");
 const __dirname = path.dirname("./data");
@@ -90,29 +93,24 @@ async function runAgentAutonomously(
   try {
     elizaLogger.log(`[First-Loop] Memeoor is deciding what to do...`);
 
-    // If you need to store an event in memory for the plugin:
     const firstMem: Memory = {
       id: stringToUuid(Date.now().toString()),
-      content: { text: "Periodic check from Memeoor.", action: ACTIONS.START },
+      content: { text: "Periodic check from Memeoor.", action: "START" },
       roomId: stringToUuid("memeoor-room-1"),
       userId: stringToUuid("memeoor-user-1"),
       agentId: runtime.agentId,
     };
 
-    // This calls the agent to process something.
-    // If your plugin automatically runs actions,
-    // you might just store the memory.
-    // Or you might directly call an action from the plugin.
-    //
-    // If "memeoorPlugin" runs on new messages, do something like:
-    await runtime.messageManager.createMemory(firstMem);
+    await runtime.databaseAdapter.createMemory(firstMem, "start", false);
 
-    const action1 = runtime.plugins[0].actions[0];
-    const action2 = runtime.plugins[0].actions[1];
+    const plugin = runtime.plugins[0] as Plugin;
+    const elizaactions: Action[] = plugin.actions as Action[];
+
+    const action2 = elizaactions[1] as Action;
 
     elizaLogger.log(`[First-Loop] Memeoor is deciding what to do...`);
     // await action1.handler(runtime, firstMem, null, null, null);
-    await action2.handler(runtime, firstMem, null, null, null);
+    // await action2.handler(runtime, firstMem, undefined, undefined, undefined);
   } catch (err) {
     elizaLogger.error("Error in autonomous loop:", err);
   }
@@ -138,13 +136,14 @@ async function runAgentAutonomously(
       //
       // If "memeoorPlugin" runs on new messages, do something like:
       await runtime.messageManager.createMemory(firstMem);
-      const iRun: IAgentRuntime = runtime;
 
-      const action1 = runtime.plugins[0].actions[0];
-      const action2 = runtime.plugins[0].actions[1];
+      const plugin = runtime.plugins[0] as Plugin;
+      const elizaactions: Action[] = plugin.actions as Action[];
+
+      const action2 = elizaactions[1] as Action;
 
       elizaLogger.log(`[Auto-Loop] Memeoor is deciding what to do...`);
-      await action1.handler(iRun, firstMem, null, null, null);
+      // await action1.handler(iRun, firstMem, null, null, null);
       // await action2.handler(iRun, firstMem, null, null, null);
     } catch (err) {
       elizaLogger.error("Error in autonomous loop:", err);
@@ -176,14 +175,8 @@ const checkPortAvailable = (port: number): Promise<boolean> => {
 /**
  * Main entry point: create & initialize the agent, then start the loop.
  */
-async function main() {
+export async function main() {
   try {
-    console.log(Safe.init);
-    const protocolKit = await Safe.init({
-      provider: process.env.BASE_LEDGER_RPC,
-      signer: process.env.AGENT_EOA_PK,
-      safeAddress: process.env.SAFE_ADDRESS,
-    });
     const directClient = new DirectClient();
     const args = parseArguments();
     let serverPort = parseInt(settings.SERVER_PORT || "3000");
@@ -215,18 +208,20 @@ async function main() {
     character.id ??= stringToUuid(character.name);
     character.username ??= character.name;
 
+    character.settings ??= {};
+
     character.settings.secrets ??= {
-      OPEN_API_KEY: process.env.OPEN_API_KEY,
-      TWITTER_USERNAME: process.env.TWITTER_USERNAME,
-      TWITTER_PASSWORD: process.env.TWITTER_PASSWORD,
-      VIEM_BASE_PRIVATE_KEY: process.env.VIEM_BASE_PRIVATE_KEY,
-      VIEM_BASE_RPC_URL: process.env.VIEM_BASE_RPC_URL,
-      BUNDLER_BASE_URL: process.env.BUNDLER_BASE_URL,
-      BUNDLER_CELO_URL: process.env.BUNDLER_CELO_URL,
-      MEME_FACTORY_CONTRACT: process.env.MEME_FACTORY_CONTRACT,
-      SAFE_CONTRACT: process.env.SAFE_CONTRACT,
-      PROXY_FACTORY_CONTRACT: process.env.PROXY_FACTORY_CONTRACT,
-      SUBGRAPH_URL: process.env.SUBGRAPH_URL,
+      OPEN_API_KEY: process.env.OPEN_API_KEY as string,
+      TWITTER_USERNAME: process.env.TWITTER_USERNAME as string,
+      TWITTER_PASSWORD: process.env.TWITTER_PASSWORD as string,
+      VIEM_BASE_PRIVATE_KEY: process.env.VIEM_BASE_PRIVATE_KEY as string,
+      VIEM_BASE_RPC_URL: process.env.VIEM_BASE_RPC_URL as string,
+      BUNDLER_BASE_URL: process.env.BUNDLER_BASE_URL as string,
+      BUNDLER_CELO_URL: process.env.BUNDLER_CELO_URL as string,
+      MEME_FACTORY_CONTRACT: process.env.MEME_FACTORY_CONTRACT as string,
+      SAFE_CONTRACT: process.env.SAFE_CONTRACT as string,
+      PROXY_FACTORY_CONTRACT: process.env.PROXY_FACTORY_CONTRACT as string,
+      SUBGRAPH_URL: process.env.SUBGRAPH_URL as string,
     };
 
     character.modelProvider = ModelProviderName.OPENAI;
@@ -236,7 +231,10 @@ async function main() {
       maxInputTokens: 2000,
     };
 
-    const token = getTokenForProvider(character.modelProvider, character);
+    const token = getTokenForProvider(
+      character.modelProvider,
+      character,
+    ) as string;
 
     elizaLogger.info("token initialized");
 

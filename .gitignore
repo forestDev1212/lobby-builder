@@ -130,3 +130,4 @@ dist
 .pnp.*
 cookies.json
 data/db.sqlite
+agents-fun/data/db.sqlite

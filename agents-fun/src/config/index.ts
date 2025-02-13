@@ -1,5 +1,9 @@
-
-import { Character, ModelProviderName, settings, validateCharacterConfig } from "@elizaos/core";
+import {
+  type Character,
+  ModelProviderName,
+  settings,
+  validateCharacterConfig,
+} from "@elizaos/core";
 import fs from "fs";
 import path from "path";
 import yargs from "yargs";
@@ -26,7 +30,7 @@ export function parseArguments(): {
 }
 
 export async function loadCharacters(
-  charactersArg: string
+  charactersArg: string,
 ): Promise<Character[]> {
   let characterPaths = charactersArg?.split(",").map((filePath) => {
     if (path.basename(filePath) === filePath) {
@@ -35,7 +39,7 @@ export async function loadCharacters(
     return path.resolve(process.cwd(), filePath.trim());
   });
 
-  const loadedCharacters = [];
+  const loadedCharacters: Character[] = [];
 
   if (characterPaths?.length > 0) {
     for (const path of characterPaths) {
@@ -58,8 +62,8 @@ export async function loadCharacters(
 
 export function getTokenForProvider(
   provider: ModelProviderName,
-  character: Character
-) {
+  character: Character,
+): string | undefined {
   switch (provider) {
     case ModelProviderName.OPENAI:
       return (
@@ -99,5 +103,7 @@ export function getTokenForProvider(
       );
     case ModelProviderName.GROQ:
       return character.settings?.secrets?.GROQ_API_KEY || settings.GROQ_API_KEY;
+    default:
+      return undefined;
   }
 }

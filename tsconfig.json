@@ -1,28 +1,18 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
-    "module": "ESNext",
-    "lib": ["ESNext", "dom"],
-    "moduleResolution": "Bundler",
-    "outDir": "./dist",
-    "rootDir": ".",
-    "strict": false,
+    "target": "ES2020",
+    "module": "commonjs",
+    "moduleResolution": "node",
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": false,
+    "forceConsistentCasingInFileNames": true,
     "allowImportingTsExtensions": true,
-    "declaration": true,
-    "emitDeclarationOnly": true,
-    "resolveJsonModule": true,
-    "noImplicitAny": false,
-    "allowJs": false,
-    "checkJs": false,
-    "noEmitOnError": false,
-    "moduleDetection": "force",
-    "allowArbitraryExtensions": true,
-    "paths": {
-      "@elizaos/plugin-memeooorr": ["./packages/plugin-memeooorr/src"]
-    }
+    "noEmit": true,
+    "allowSyntheticDefaultImports": true
   },
-  "include": ["src/*", "packages/**/*"]
+  "files": [],
+  "references": [
+    { "path": "packages/plugin-memeooorr" },
+    { "path": "packages/safe-client" }
+  ]
 }
