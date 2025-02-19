@@ -37,31 +37,34 @@ importers:
     dependencies:
       '@elizaos/adapter-postgres':
         specifier: 0.1.7
-        version: 0.1.7(@google-cloud/vertexai@1.9.2(encoding@0.1.13))(@langchain/core@0.3.33(openai@4.80.0(encoding@0.1.13)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(zod@3.23.8)))(axios@1.7.9)(encoding@0.1.13)(react@19.0.0)(sswr@2.1.0(svelte@5.19.2))(svelte@5.19.2)(vue@3.5.13(typescript@5.7.3))(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))
+        version: 0.1.7(@google-cloud/vertexai@1.9.2(encoding@0.1.13))(@langchain/core@0.3.33(openai@4.73.0(encoding@0.1.13)(zod@3.23.8)))(axios@1.7.9)(encoding@0.1.13)(react@19.0.0)(sswr@2.1.0(svelte@5.19.2))(svelte@5.19.2)(vue@3.5.13(typescript@5.7.3))(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))
       '@elizaos/adapter-sqlite':
         specifier: 0.1.7
-        version: 0.1.7(@google-cloud/vertexai@1.9.2(encoding@0.1.13))(@langchain/core@0.3.33(openai@4.80.0(encoding@0.1.13)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(zod@3.23.8)))(axios@1.7.9)(encoding@0.1.13)(react@19.0.0)(sswr@2.1.0(svelte@5.19.2))(svelte@5.19.2)(vue@3.5.13(typescript@5.7.3))(whatwg-url@14.1.0)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))
+        version: 0.1.7(@google-cloud/vertexai@1.9.2(encoding@0.1.13))(@langchain/core@0.3.33(openai@4.73.0(encoding@0.1.13)(zod@3.23.8)))(axios@1.7.9)(encoding@0.1.13)(react@19.0.0)(sswr@2.1.0(svelte@5.19.2))(svelte@5.19.2)(vue@3.5.13(typescript@5.7.3))(whatwg-url@14.1.0)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))
       '@elizaos/client-direct':
         specifier: 0.1.7
-        version: 0.1.7(@google-cloud/vertexai@1.9.2(encoding@0.1.13))(@langchain/core@0.3.33(openai@4.80.0(encoding@0.1.13)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(zod@3.23.8)))(axios@1.7.9)(bufferutil@4.0.9)(encoding@0.1.13)(postcss@8.5.1)(react@19.0.0)(sswr@2.1.0(svelte@5.19.2))(svelte@5.19.2)(typescript@5.7.3)(utf-8-validate@5.0.10)(vue@3.5.13(typescript@5.7.3))(whatwg-url@14.1.0)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(yaml@2.7.0)
+        version: 0.1.7(@google-cloud/vertexai@1.9.2(encoding@0.1.13))(@langchain/core@0.3.33(openai@4.73.0(encoding@0.1.13)(zod@3.23.8)))(axios@1.7.9)(bufferutil@4.0.9)(encoding@0.1.13)(postcss@8.5.1)(react@19.0.0)(sswr@2.1.0(svelte@5.19.2))(svelte@5.19.2)(typescript@5.7.3)(utf-8-validate@5.0.10)(vue@3.5.13(typescript@5.7.3))(whatwg-url@14.1.0)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(yaml@2.7.0)
       '@elizaos/client-twitter':
         specifier: 0.1.7
-        version: 0.1.7(@google-cloud/vertexai@1.9.2(encoding@0.1.13))(@langchain/core@0.3.33(openai@4.80.0(encoding@0.1.13)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(zod@3.23.8)))(axios@1.7.9)(bufferutil@4.0.9)(encoding@0.1.13)(react@19.0.0)(sswr@2.1.0(svelte@5.19.2))(svelte@5.19.2)(utf-8-validate@5.0.10)(vue@3.5.13(typescript@5.7.3))(whatwg-url@14.1.0)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))
+        version: 0.1.7(@google-cloud/vertexai@1.9.2(encoding@0.1.13))(@langchain/core@0.3.33(openai@4.73.0(encoding@0.1.13)(zod@3.23.8)))(axios@1.7.9)(bufferutil@4.0.9)(encoding@0.1.13)(react@19.0.0)(sswr@2.1.0(svelte@5.19.2))(svelte@5.19.2)(utf-8-validate@5.0.10)(vue@3.5.13(typescript@5.7.3))(whatwg-url@14.1.0)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))
       '@elizaos/core':
         specifier: 0.1.7
-        version: 0.1.7(@google-cloud/vertexai@1.9.2(encoding@0.1.13))(@langchain/core@0.3.33(openai@4.80.0(encoding@0.1.13)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(zod@3.23.8)))(axios@1.7.9)(encoding@0.1.13)(react@19.0.0)(sswr@2.1.0(svelte@5.19.2))(svelte@5.19.2)(vue@3.5.13(typescript@5.7.3))(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))
+        version: 0.1.7(@google-cloud/vertexai@1.9.2(encoding@0.1.13))(@langchain/core@0.3.33(openai@4.73.0(encoding@0.1.13)(zod@3.23.8)))(axios@1.7.9)(encoding@0.1.13)(react@19.0.0)(sswr@2.1.0(svelte@5.19.2))(svelte@5.19.2)(vue@3.5.13(typescript@5.7.3))(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))
       '@elizaos/plugin-bootstrap':
         specifier: 0.1.7
-        version: 0.1.7(@google-cloud/vertexai@1.9.2(encoding@0.1.13))(@langchain/core@0.3.33(openai@4.80.0(encoding@0.1.13)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(zod@3.23.8)))(axios@1.7.9)(encoding@0.1.13)(postcss@8.5.1)(react@19.0.0)(sswr@2.1.0(svelte@5.19.2))(svelte@5.19.2)(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3))(whatwg-url@14.1.0)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(yaml@2.7.0)
+        version: 0.1.7(@google-cloud/vertexai@1.9.2(encoding@0.1.13))(@langchain/core@0.3.33(openai@4.73.0(encoding@0.1.13)(zod@3.23.8)))(axios@1.7.9)(encoding@0.1.13)(postcss@8.5.1)(react@19.0.0)(sswr@2.1.0(svelte@5.19.2))(svelte@5.19.2)(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3))(whatwg-url@14.1.0)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(yaml@2.7.0)
       '@elizaos/plugin-node':
         specifier: 0.1.7
-        version: 0.1.7(@google-cloud/vertexai@1.9.2(encoding@0.1.13))(@langchain/core@0.3.33(openai@4.80.0(encoding@0.1.13)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(zod@3.23.8)))(axios@1.7.9)(bufferutil@4.0.9)(canvas@2.11.2(encoding@0.1.13))(encoding@0.1.13)(onnxruntime-node@1.20.0)(puppeteer-core@19.11.1(bufferutil@4.0.9)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10))(puppeteer@19.11.1(bufferutil@4.0.9)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10))(react@19.0.0)(sswr@2.1.0(svelte@5.19.2))(svelte@5.19.2)(typescript@5.7.3)(utf-8-validate@5.0.10)(vue@3.5.13(typescript@5.7.3))(whatwg-url@14.1.0)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(zod@3.23.8)
+        version: 0.1.7(@google-cloud/vertexai@1.9.2(encoding@0.1.13))(@langchain/core@0.3.33(openai@4.73.0(encoding@0.1.13)(zod@3.23.8)))(axios@1.7.9)(bufferutil@4.0.9)(canvas@2.11.2(encoding@0.1.13))(encoding@0.1.13)(onnxruntime-node@1.20.0)(puppeteer-core@19.11.1(bufferutil@4.0.9)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10))(puppeteer@19.11.1(bufferutil@4.0.9)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10))(react@19.0.0)(sswr@2.1.0(svelte@5.19.2))(svelte@5.19.2)(typescript@5.7.3)(utf-8-validate@5.0.10)(vue@3.5.13(typescript@5.7.3))(whatwg-url@14.1.0)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(zod@3.23.8)
       '@tavily/core':
         specifier: 0.0.2
         version: 0.0.2
       better-sqlite3:
         specifier: 11.5.0
         version: 11.5.0
+      dotenv:
+        specifier: ^16.4.7
+        version: 16.4.7
       fs:
         specifier: 0.0.1-security
         version: 0.0.1-security
@@ -116,7 +119,7 @@ importers:
     dependencies:
       '@elizaos/core':
         specifier: 0.1.7
-        version: 0.1.7(@google-cloud/vertexai@1.9.2(encoding@0.1.13))(@langchain/core@0.3.33(openai@4.73.0(encoding@0.1.13)(zod@3.23.8)))(axios@1.7.9)(encoding@0.1.13)(react@19.0.0)(sswr@2.1.0(svelte@5.19.2))(svelte@5.19.2)(vue@3.5.13(typescript@5.7.3))(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))
+        version: 0.1.7(@google-cloud/vertexai@1.9.2(encoding@0.1.13))(@langchain/core@0.3.33(openai@4.80.0(encoding@0.1.13)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(zod@3.23.8)))(axios@1.7.9)(encoding@0.1.13)(react@19.0.0)(sswr@2.1.0(svelte@5.19.2))(svelte@5.19.2)(vue@3.5.13(typescript@5.7.3))(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))
       '@goat-sdk/core':
         specifier: 0.3.4
         version: 0.3.4(bufferutil@4.0.9)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10)
@@ -9012,9 +9015,9 @@ snapshots:
       '@huggingface/jinja': 0.2.2
       onnxruntime-node: 1.20.0
 
-  '@elizaos/adapter-postgres@0.1.7(@google-cloud/vertexai@1.9.2(encoding@0.1.13))(@langchain/core@0.3.33(openai@4.80.0(encoding@0.1.13)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(zod@3.23.8)))(axios@1.7.9)(encoding@0.1.13)(react@19.0.0)(sswr@2.1.0(svelte@5.19.2))(svelte@5.19.2)(vue@3.5.13(typescript@5.7.3))(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))':
+  '@elizaos/adapter-postgres@0.1.7(@google-cloud/vertexai@1.9.2(encoding@0.1.13))(@langchain/core@0.3.33(openai@4.73.0(encoding@0.1.13)(zod@3.23.8)))(axios@1.7.9)(encoding@0.1.13)(react@19.0.0)(sswr@2.1.0(svelte@5.19.2))(svelte@5.19.2)(vue@3.5.13(typescript@5.7.3))(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))':
     dependencies:
-      '@elizaos/core': 0.1.7(@google-cloud/vertexai@1.9.2(encoding@0.1.13))(@langchain/core@0.3.33(openai@4.80.0(encoding@0.1.13)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(zod@3.23.8)))(axios@1.7.9)(encoding@0.1.13)(react@19.0.0)(sswr@2.1.0(svelte@5.19.2))(svelte@5.19.2)(vue@3.5.13(typescript@5.7.3))(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))
+      '@elizaos/core': 0.1.7(@google-cloud/vertexai@1.9.2(encoding@0.1.13))(@langchain/core@0.3.33(openai@4.73.0(encoding@0.1.13)(zod@3.23.8)))(axios@1.7.9)(encoding@0.1.13)(react@19.0.0)(sswr@2.1.0(svelte@5.19.2))(svelte@5.19.2)(vue@3.5.13(typescript@5.7.3))(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))
       '@types/pg': 8.11.10
       pg: 8.13.1
     transitivePeerDependencies:
@@ -9042,9 +9045,9 @@ snapshots:
       - vue
       - ws
 
-  '@elizaos/adapter-sqlite@0.1.7(@google-cloud/vertexai@1.9.2(encoding@0.1.13))(@langchain/core@0.3.33(openai@4.80.0(encoding@0.1.13)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(zod@3.23.8)))(axios@1.7.9)(encoding@0.1.13)(react@19.0.0)(sswr@2.1.0(svelte@5.19.2))(svelte@5.19.2)(vue@3.5.13(typescript@5.7.3))(whatwg-url@14.1.0)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))':
+  '@elizaos/adapter-sqlite@0.1.7(@google-cloud/vertexai@1.9.2(encoding@0.1.13))(@langchain/core@0.3.33(openai@4.73.0(encoding@0.1.13)(zod@3.23.8)))(axios@1.7.9)(encoding@0.1.13)(react@19.0.0)(sswr@2.1.0(svelte@5.19.2))(svelte@5.19.2)(vue@3.5.13(typescript@5.7.3))(whatwg-url@14.1.0)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))':
     dependencies:
-      '@elizaos/core': 0.1.7(@google-cloud/vertexai@1.9.2(encoding@0.1.13))(@langchain/core@0.3.33(openai@4.80.0(encoding@0.1.13)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(zod@3.23.8)))(axios@1.7.9)(encoding@0.1.13)(react@19.0.0)(sswr@2.1.0(svelte@5.19.2))(svelte@5.19.2)(vue@3.5.13(typescript@5.7.3))(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))
+      '@elizaos/core': 0.1.7(@google-cloud/vertexai@1.9.2(encoding@0.1.13))(@langchain/core@0.3.33(openai@4.73.0(encoding@0.1.13)(zod@3.23.8)))(axios@1.7.9)(encoding@0.1.13)(react@19.0.0)(sswr@2.1.0(svelte@5.19.2))(svelte@5.19.2)(vue@3.5.13(typescript@5.7.3))(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))
       '@types/better-sqlite3': 7.6.12
       better-sqlite3: 11.6.0
       sqlite-vec: 0.1.6
@@ -9073,10 +9076,10 @@ snapshots:
       - vue
       - ws
 
-  '@elizaos/client-direct@0.1.7(@google-cloud/vertexai@1.9.2(encoding@0.1.13))(@langchain/core@0.3.33(openai@4.80.0(encoding@0.1.13)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(zod@3.23.8)))(axios@1.7.9)(bufferutil@4.0.9)(encoding@0.1.13)(postcss@8.5.1)(react@19.0.0)(sswr@2.1.0(svelte@5.19.2))(svelte@5.19.2)(typescript@5.7.3)(utf-8-validate@5.0.10)(vue@3.5.13(typescript@5.7.3))(whatwg-url@14.1.0)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(yaml@2.7.0)':
+  '@elizaos/client-direct@0.1.7(@google-cloud/vertexai@1.9.2(encoding@0.1.13))(@langchain/core@0.3.33(openai@4.73.0(encoding@0.1.13)(zod@3.23.8)))(axios@1.7.9)(bufferutil@4.0.9)(encoding@0.1.13)(postcss@8.5.1)(react@19.0.0)(sswr@2.1.0(svelte@5.19.2))(svelte@5.19.2)(typescript@5.7.3)(utf-8-validate@5.0.10)(vue@3.5.13(typescript@5.7.3))(whatwg-url@14.1.0)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(yaml@2.7.0)':
     dependencies:
-      '@elizaos/core': 0.1.7(@google-cloud/vertexai@1.9.2(encoding@0.1.13))(@langchain/core@0.3.33(openai@4.80.0(encoding@0.1.13)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(zod@3.23.8)))(axios@1.7.9)(encoding@0.1.13)(react@19.0.0)(sswr@2.1.0(svelte@5.19.2))(svelte@5.19.2)(vue@3.5.13(typescript@5.7.3))(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))
-      '@elizaos/plugin-image-generation': 0.1.7(@google-cloud/vertexai@1.9.2(encoding@0.1.13))(@langchain/core@0.3.33(openai@4.80.0(encoding@0.1.13)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(zod@3.23.8)))(axios@1.7.9)(encoding@0.1.13)(postcss@8.5.1)(react@19.0.0)(sswr@2.1.0(svelte@5.19.2))(svelte@5.19.2)(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3))(whatwg-url@14.1.0)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(yaml@2.7.0)
+      '@elizaos/core': 0.1.7(@google-cloud/vertexai@1.9.2(encoding@0.1.13))(@langchain/core@0.3.33(openai@4.73.0(encoding@0.1.13)(zod@3.23.8)))(axios@1.7.9)(encoding@0.1.13)(react@19.0.0)(sswr@2.1.0(svelte@5.19.2))(svelte@5.19.2)(vue@3.5.13(typescript@5.7.3))(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))
+      '@elizaos/plugin-image-generation': 0.1.7(@google-cloud/vertexai@1.9.2(encoding@0.1.13))(@langchain/core@0.3.33(openai@4.73.0(encoding@0.1.13)(zod@3.23.8)))(axios@1.7.9)(encoding@0.1.13)(postcss@8.5.1)(react@19.0.0)(sswr@2.1.0(svelte@5.19.2))(svelte@5.19.2)(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3))(whatwg-url@14.1.0)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(yaml@2.7.0)
       '@types/body-parser': 1.19.5
       '@types/cors': 2.8.17
       '@types/express': 5.0.0
@@ -9119,9 +9122,9 @@ snapshots:
       - ws
       - yaml
 
-  '@elizaos/client-twitter@0.1.7(@google-cloud/vertexai@1.9.2(encoding@0.1.13))(@langchain/core@0.3.33(openai@4.80.0(encoding@0.1.13)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(zod@3.23.8)))(axios@1.7.9)(bufferutil@4.0.9)(encoding@0.1.13)(react@19.0.0)(sswr@2.1.0(svelte@5.19.2))(svelte@5.19.2)(utf-8-validate@5.0.10)(vue@3.5.13(typescript@5.7.3))(whatwg-url@14.1.0)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))':
+  '@elizaos/client-twitter@0.1.7(@google-cloud/vertexai@1.9.2(encoding@0.1.13))(@langchain/core@0.3.33(openai@4.73.0(encoding@0.1.13)(zod@3.23.8)))(axios@1.7.9)(bufferutil@4.0.9)(encoding@0.1.13)(react@19.0.0)(sswr@2.1.0(svelte@5.19.2))(svelte@5.19.2)(utf-8-validate@5.0.10)(vue@3.5.13(typescript@5.7.3))(whatwg-url@14.1.0)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))':
     dependencies:
-      '@elizaos/core': 0.1.7(@google-cloud/vertexai@1.9.2(encoding@0.1.13))(@langchain/core@0.3.33(openai@4.80.0(encoding@0.1.13)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(zod@3.23.8)))(axios@1.7.9)(encoding@0.1.13)(react@19.0.0)(sswr@2.1.0(svelte@5.19.2))(svelte@5.19.2)(vue@3.5.13(typescript@5.7.3))(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))
+      '@elizaos/core': 0.1.7(@google-cloud/vertexai@1.9.2(encoding@0.1.13))(@langchain/core@0.3.33(openai@4.73.0(encoding@0.1.13)(zod@3.23.8)))(axios@1.7.9)(encoding@0.1.13)(react@19.0.0)(sswr@2.1.0(svelte@5.19.2))(svelte@5.19.2)(vue@3.5.13(typescript@5.7.3))(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))
       agent-twitter-client: 0.0.18(bufferutil@4.0.9)(utf-8-validate@5.0.10)
       glob: 11.0.0
       whatwg-url: 14.1.0
@@ -9254,9 +9257,9 @@ snapshots:
       - vue
       - ws
 
-  '@elizaos/plugin-bootstrap@0.1.7(@google-cloud/vertexai@1.9.2(encoding@0.1.13))(@langchain/core@0.3.33(openai@4.80.0(encoding@0.1.13)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(zod@3.23.8)))(axios@1.7.9)(encoding@0.1.13)(postcss@8.5.1)(react@19.0.0)(sswr@2.1.0(svelte@5.19.2))(svelte@5.19.2)(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3))(whatwg-url@14.1.0)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(yaml@2.7.0)':
+  '@elizaos/plugin-bootstrap@0.1.7(@google-cloud/vertexai@1.9.2(encoding@0.1.13))(@langchain/core@0.3.33(openai@4.73.0(encoding@0.1.13)(zod@3.23.8)))(axios@1.7.9)(encoding@0.1.13)(postcss@8.5.1)(react@19.0.0)(sswr@2.1.0(svelte@5.19.2))(svelte@5.19.2)(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3))(whatwg-url@14.1.0)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(yaml@2.7.0)':
     dependencies:
-      '@elizaos/core': 0.1.7(@google-cloud/vertexai@1.9.2(encoding@0.1.13))(@langchain/core@0.3.33(openai@4.80.0(encoding@0.1.13)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(zod@3.23.8)))(axios@1.7.9)(encoding@0.1.13)(react@19.0.0)(sswr@2.1.0(svelte@5.19.2))(svelte@5.19.2)(vue@3.5.13(typescript@5.7.3))(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))
+      '@elizaos/core': 0.1.7(@google-cloud/vertexai@1.9.2(encoding@0.1.13))(@langchain/core@0.3.33(openai@4.73.0(encoding@0.1.13)(zod@3.23.8)))(axios@1.7.9)(encoding@0.1.13)(react@19.0.0)(sswr@2.1.0(svelte@5.19.2))(svelte@5.19.2)(vue@3.5.13(typescript@5.7.3))(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))
       tsup: 8.3.5(postcss@8.5.1)(typescript@5.7.3)(yaml@2.7.0)
       whatwg-url: 14.1.0
     transitivePeerDependencies:
@@ -9290,9 +9293,9 @@ snapshots:
       - ws
       - yaml
 
-  '@elizaos/plugin-image-generation@0.1.7(@google-cloud/vertexai@1.9.2(encoding@0.1.13))(@langchain/core@0.3.33(openai@4.80.0(encoding@0.1.13)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(zod@3.23.8)))(axios@1.7.9)(encoding@0.1.13)(postcss@8.5.1)(react@19.0.0)(sswr@2.1.0(svelte@5.19.2))(svelte@5.19.2)(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3))(whatwg-url@14.1.0)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(yaml@2.7.0)':
+  '@elizaos/plugin-image-generation@0.1.7(@google-cloud/vertexai@1.9.2(encoding@0.1.13))(@langchain/core@0.3.33(openai@4.73.0(encoding@0.1.13)(zod@3.23.8)))(axios@1.7.9)(encoding@0.1.13)(postcss@8.5.1)(react@19.0.0)(sswr@2.1.0(svelte@5.19.2))(svelte@5.19.2)(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3))(whatwg-url@14.1.0)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(yaml@2.7.0)':
     dependencies:
-      '@elizaos/core': 0.1.7(@google-cloud/vertexai@1.9.2(encoding@0.1.13))(@langchain/core@0.3.33(openai@4.80.0(encoding@0.1.13)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(zod@3.23.8)))(axios@1.7.9)(encoding@0.1.13)(react@19.0.0)(sswr@2.1.0(svelte@5.19.2))(svelte@5.19.2)(vue@3.5.13(typescript@5.7.3))(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))
+      '@elizaos/core': 0.1.7(@google-cloud/vertexai@1.9.2(encoding@0.1.13))(@langchain/core@0.3.33(openai@4.73.0(encoding@0.1.13)(zod@3.23.8)))(axios@1.7.9)(encoding@0.1.13)(react@19.0.0)(sswr@2.1.0(svelte@5.19.2))(svelte@5.19.2)(vue@3.5.13(typescript@5.7.3))(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))
       tsup: 8.3.5(postcss@8.5.1)(typescript@5.7.3)(yaml@2.7.0)
       whatwg-url: 14.1.0
     transitivePeerDependencies:
@@ -9326,7 +9329,7 @@ snapshots:
       - ws
       - yaml
 
-  '@elizaos/plugin-node@0.1.7(@google-cloud/vertexai@1.9.2(encoding@0.1.13))(@langchain/core@0.3.33(openai@4.80.0(encoding@0.1.13)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(zod@3.23.8)))(axios@1.7.9)(bufferutil@4.0.9)(canvas@2.11.2(encoding@0.1.13))(encoding@0.1.13)(onnxruntime-node@1.20.0)(puppeteer-core@19.11.1(bufferutil@4.0.9)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10))(puppeteer@19.11.1(bufferutil@4.0.9)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10))(react@19.0.0)(sswr@2.1.0(svelte@5.19.2))(svelte@5.19.2)(typescript@5.7.3)(utf-8-validate@5.0.10)(vue@3.5.13(typescript@5.7.3))(whatwg-url@14.1.0)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(zod@3.23.8)':
+  '@elizaos/plugin-node@0.1.7(@google-cloud/vertexai@1.9.2(encoding@0.1.13))(@langchain/core@0.3.33(openai@4.73.0(encoding@0.1.13)(zod@3.23.8)))(axios@1.7.9)(bufferutil@4.0.9)(canvas@2.11.2(encoding@0.1.13))(encoding@0.1.13)(onnxruntime-node@1.20.0)(puppeteer-core@19.11.1(bufferutil@4.0.9)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10))(puppeteer@19.11.1(bufferutil@4.0.9)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10))(react@19.0.0)(sswr@2.1.0(svelte@5.19.2))(svelte@5.19.2)(typescript@5.7.3)(utf-8-validate@5.0.10)(vue@3.5.13(typescript@5.7.3))(whatwg-url@14.1.0)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(zod@3.23.8)':
     dependencies:
       '@aws-sdk/client-s3': 3.733.0
       '@aws-sdk/s3-request-presigner': 3.733.0
@@ -9334,7 +9337,7 @@ snapshots:
       '@echogarden/espeak-ng-emscripten': 0.3.3
       '@echogarden/kissfft-wasm': 0.2.0
       '@echogarden/speex-resampler-wasm': 0.2.1
-      '@elizaos/core': 0.1.7(@google-cloud/vertexai@1.9.2(encoding@0.1.13))(@langchain/core@0.3.33(openai@4.80.0(encoding@0.1.13)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(zod@3.23.8)))(axios@1.7.9)(encoding@0.1.13)(react@19.0.0)(sswr@2.1.0(svelte@5.19.2))(svelte@5.19.2)(vue@3.5.13(typescript@5.7.3))(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))
+      '@elizaos/core': 0.1.7(@google-cloud/vertexai@1.9.2(encoding@0.1.13))(@langchain/core@0.3.33(openai@4.73.0(encoding@0.1.13)(zod@3.23.8)))(axios@1.7.9)(encoding@0.1.13)(react@19.0.0)(sswr@2.1.0(svelte@5.19.2))(svelte@5.19.2)(vue@3.5.13(typescript@5.7.3))(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))
       '@huggingface/transformers': 3.0.2
       '@opendocsg/pdf2md': 0.1.32(encoding@0.1.13)
       '@types/uuid': 10.0.0
