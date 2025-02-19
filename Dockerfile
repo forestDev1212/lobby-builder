@@ -18,12 +18,13 @@ WORKDIR /app
 COPY package.json ./
 COPY pnpm-lock.yaml ./
 COPY tsconfig.json ./
+COPY tsconfig.settings.json ./
 COPY pnpm-workspace.yaml ./
+COPY lerna.json ./
 
 # Copy the rest of the application code
-COPY ./src ./src
+COPY ./agents-fun ./agents-fun
 COPY ./packages ./packages
-COPY ./characters ./characters
 COPY ./scripts ./scripts
 
 # Install dependencies and build the project
@@ -51,20 +52,24 @@ RUN apt-get update && \
 WORKDIR /app
 
 # Copy built artifacts and production dependencies from the builder stage
+COPY --from=builder /app/lerna.json /app/
 COPY --from=builder /app/package.json /app/
-COPY --from=builder /app/node_modules /app/node_modules
-COPY --from=builder /app/src /app/src
-COPY --from=builder /app/packages /app/packages
-COPY --from=builder /app/characters /app/characters
-COPY --from=builder /app/dist /app/dist
 COPY --from=builder /app/tsconfig.json /app/
+COPY --from=builder /app/tsconfig.settings.json /app/
 COPY --from=builder /app/pnpm-lock.yaml /app/
 COPY --from=builder /app/pnpm-workspace.yaml /app/
+COPY --from=builder /app/node_modules /app/node_modules
+COPY --from=builder /app/agents-fun /app/agents-fun
+COPY --from=builder /app/packages /app/packages
+COPY --from=builder /app/dist /app/dist
+COPY --from=builder /app/scripts /app/scripts
 
-RUN mkdir -p /app/data && \
-    chown -R node:node /app && \
-    chmod -R 755 /app
+RUN chmod +x scripts/run.sh
 
 EXPOSE 3000
 # Set the command to run the application
-CMD ["pnpm", "start", "--character=characters/eliza.character.json"]
+
+ENTRYPOINT [ "/app/scripts/run.sh" ]
+
+# Add health check
+HEALTHCHECK --interval=30s --timeout=300s --start-period=50s --retries=30 CMD curl -f http://localhost:3000 || exit 1
