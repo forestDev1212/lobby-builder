@@ -11,14 +11,12 @@ import {
   elizaLogger,
   type Character,
   type Memory,
-  MemoryManager,
   stringToUuid,
   settings,
 } from "@elizaos/core";
 import { ModelProviderName } from "@elizaos/core";
 import path from "path";
 import net from "net";
-import { fileURLToPath } from "url";
 import { memeoorPlugin } from "plugin-memeooorr";
 import { initializeDatabase } from "./database/index.ts";
 import { initializeDbCache } from "./cache/index.ts";
@@ -27,7 +25,13 @@ import {
   loadCharacters,
   parseArguments,
 } from "./config/index.ts";
+import dotenv from "dotenv";
 
+// Load environment variables from .env file
+dotenv.config();
+
+// print loaded env values
+console.log();
 const __dirname = path.dirname("./data");
 
 /**
@@ -98,20 +102,25 @@ async function runAgentAutonomously(
     const memeInteractAction = elizaactions[1] as Action;
 
     elizaLogger.log(`[First-Loop] Memeoor is deciding what to do...`);
-    await tweetAction.handler(
+    const resp = (await tweetAction.handler(
       runtime,
       firstMem,
       undefined,
       undefined,
       undefined,
-    );
-    await memeInteractAction.handler(
-      runtime,
-      firstMem,
-      undefined,
-      undefined,
-      undefined,
-    );
+    )) as Boolean;
+
+    if (resp) {
+      await memeInteractAction.handler(
+        runtime,
+        firstMem,
+        undefined,
+        undefined,
+        undefined,
+      );
+    } else {
+      elizaLogger.warn("Tweet Interaction behaviour was unsuccessful");
+    }
   } catch (err) {
     elizaLogger.error("Error in autonomous loop:", err);
   }
@@ -224,17 +233,53 @@ export async function main() {
 
     character.settings ??= {};
 
-    character.settings.secrets ??= {
-      OPEN_API_KEY: process.env.OPEN_API_KEY as string,
-      TWITTER_USERNAME: process.env.TWITTER_USERNAME as string,
-      TWITTER_PASSWORD: process.env.TWITTER_PASSWORD as string,
+    const safe_address_dict = process.env
+      .CONNECTION_CONFIGS_CONFIG_SAFE_CONTRACT_ADDRESSES as string;
+    let safe_adress = "";
+    if (safe_address_dict) {
+      try {
+        const safe_address_obj = JSON.parse(safe_address_dict);
+        if (safe_address_obj.base) {
+          safe_adress = safe_address_obj.base;
+        } else {
+          console.error("Base key not found in the safe address dictionary.");
+          process.exit(1);
+        }
+      } catch (error) {
+        console.error("Failed to parse safe address dictionary:", error);
+      }
+    } else {
+      console.error(
+        "Safe address dictionary is not defined in the environment variables.",
+      );
+    }
+
+    character.settings.secrets = {
+      OPENAI_API_KEY: process.env
+        .CONNECTION_CONFIGS_CONFIG_OPENAI_API_KEY as string,
+      TWITTER_USERNAME: process.env
+        .CONNECTION_CONFIGS_CONFIG_TWITTER_USERNAME as string,
+      TWITTER_PASSWORD: process.env
+        .CONNECTION_CONFIGS_CONFIG_TWITTER_PASSWORD as string,
+      TWITTER_EMAIL: process.env
+        .CONNECTION_CONFIGS_CONFIG_TWITTER_EMAIL as string,
       AGENT_EOA_PK: process.env.AGENT_EOA_PK as string,
-      BASE_LEDGER_RPC: process.env.BASE_LEDGER_RPC as string,
-      MEME_FACTORY_CONTRACT: process.env.MEME_FACTORY_CONTRACT as string,
-      SAFE_ADDRESS: process.env.SAFE_CONTRACT as string,
-      SUBGRAPH_URL: process.env.SUBGRAPH_URL as string,
-      MEME_SUBGRAPH_URl: process.env.MEME_SUBGRAPH_URl as string,
+      BASE_LEDGER_RPC: process.env
+        .CONNECTION_CONFIGS_CONFIG_BASE_LEDGER_RPC as string,
+      MEME_FACTORY_CONTRACT: process.env
+        .CONNECTION_CONFIGS_CONFIG_MEME_FACTORY_CONTRACT as string,
+      SAFE_ADDRESS_DICT: process.env
+        .CONNECTION_CONFIGS_CONFIG_SAFE_CONTRACT_ADDRESSES as string,
+      SAFE_ADDRESS: safe_adress,
+      SUBGRAPH_URL: process.env
+        .CONNECTION_CONFIGS_CONFIG_SUBGRAPH_URL as string,
+      MEME_SUBGRAPH_URL: process.env
+        .CONNECTION_CONFIGS_CONFIG_MEME_SUBGRAPH_URL as string,
+      CHAIN_ID: process.env.CONNECTION_CONFIGS_CONFIG_BASE_CHAIN_ID as string,
     };
+
+    console.log("Current character settings");
+    console.log(character.settings.secrets);
 
     character.modelProvider = ModelProviderName.OPENAI;
     character.settings.model = "gpt-4o-mini";
