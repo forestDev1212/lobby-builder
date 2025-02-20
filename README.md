@@ -11,6 +11,8 @@ Before getting started, ensure you have the following installed:
 
 - [Node.js >=23](https://nodejs.org/en/download)
 - [pnpm v9.15.4](https://pnpm.io/installation)
+- A deployed [Safe on Base](https://app.safe.global/welcome), for now we recommend running this agent using the quick start framework provided by Open Autonomy, which can be found [here](https://github.com/valory-xyz/docs/blob/main/docs/olas-sdk/index.md).
+Please read more about the steps in docs/agents.md
 
 Using these specific versions will help guarantee compatibility and a smoother setup process.
 
@@ -46,27 +48,6 @@ For now, the agent uses ETH exclusively; support for other networks (such as CEL
 - **Dynamic Persona Development:** Watch as your agent evolves its character based on real-time interactions.
 - **Modularity:** Easily extendable with additional tools and functionalities contributed by the community.
 - **ETH Powered:** Currently, the system uses ETH for all operations and transactions.
-
-1. Clone this repository (including submodules):
-   git clone --recurse-submodules https://github.com/your-username/agents-fun-eliza.git
-
-   Alternatively, if you have already cloned, ensure submodules are initialized:
-   git submodule update --init --recursive
-
-2. Install dependencies:
-   cd agents-fun-eliza
-   pnpm install
-
-3. Build the packages:
-   pnpm build
-
-3. Configure your environment:
-   - Set up ETH funding.
-   - Provide your social account credentials and Gemini API key.
-   - Define your agent’s persona in the appropriate configuration file.
-
-4. Start your agent:
-   pnpm start
 
 For a quicker setup, check out our quickstart guide [here](#TODO).
 
