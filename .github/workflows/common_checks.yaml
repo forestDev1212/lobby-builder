@@ -27,9 +27,9 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
-
-      - name: Add submodules
-        run: git submodule update --init --recursive
+        with:
+          submodules: true
+          token: ${{ secrets.GH_TOKEN }}
 
       - uses: pnpm/action-setup@v3
         with:
