@@ -107,3 +107,8 @@ export function getTokenForProvider(
       return undefined;
   }
 }
+
+export const ROOMS = {
+  TOKEN_INTERACTION: "TOKEN_INTERACTION",
+  TWITTER_INTERACTION: "TWITTER_INTERACTION",
+} as const;
