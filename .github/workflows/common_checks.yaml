@@ -1,0 +1,51 @@
+name: main_workflow
+
+on:
+  push:
+    branches:
+      - development
+      - main
+  pull_request:
+
+jobs:
+  scan:
+    name: gitleaks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - run: |
+          wget https://github.com/zricethezav/gitleaks/releases/download/v8.10.1/gitleaks_8.10.1_linux_x64.tar.gz && \
+          tar -xzf gitleaks_8.10.1_linux_x64.tar.gz && \
+          sudo install gitleaks /usr/bin && \
+          gitleaks detect --report-format json --report-path leak_report -v
+
+  build:
+    name: Build Project
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+          token: ${{ secrets.GH_TOKEN }}
+
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 9.15.4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "23" # ensures your engine (>=23) requirement is met
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install -r --no-frozen-lockfile
+
+      - name: Install Dependencies
+        run: pnpm install
+
+      - name: Build Project
+        run: pnpm run build
