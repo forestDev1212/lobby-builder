@@ -1,6 +1,6 @@
 # agents-fun-eliza
 
-An autonomous agent built on the Eliza framework for the Agents.fun ecosystem. Inspired by the [Meme-ooorr](https://github.com/dvilelaf/memeooorr) project, this repo aims to develop an open autonomy agent that leverages the fun and interactive capabilities of Eliza.
+An autonomous agent built on the Eliza framework for the Agents.fun ecosystem. Inspired by the [Meme-ooorr](https://github.com/dvilelaf/memeooorr) project(built on open autonomy aea framework), this repo aims to develop an Elizaos agent that leverages the fun and interactive capabilities of Eliza.
 
 > :warning: **Warning**
 > Use this code at your own risk. The repository has not been audited for security vulnerabilities. Running this code could lead to unexpected behavior or asset risks. Please review the [LICENSE](./LICENSE) file for details on usage rights and limitations.
@@ -22,6 +22,7 @@ agents-fun-eliza is designed to become an autonomous AI agent that can:
 - Develop and evolve a unique persona based on its interactions.
 - Operate continuously as long as it is running.
 - Be extended with new features and tools, opening the gateway to community-driven innovation.
+- Summmon memecoins and other fun parts of the agents.fun ecosystem.
 
 For now, the agent uses ETH exclusively; support for other networks (such as CELO) is currently not available.
 
@@ -49,15 +50,10 @@ For now, the agent uses ETH exclusively; support for other networks (such as CEL
 - **Modularity:** Easily extendable with additional tools and functionalities contributed by the community.
 - **ETH Powered:** Currently, the system uses ETH for all operations and transactions.
 
-For a quicker setup, check out our quickstart guide [here](#TODO).
-
 ## Agent Development
 
-For more details on how to develop and extend your agent, visit the [Agent Development Guide](docs/agents.md).
+For more details on how to develop and run the agent, visit the [Agent Development Guide](docs/agents.md). This Eliza agent is powered by the olas sdk backend which provides the modularity of building agents in multiple frameworks and run using olas operate middleware, which provides a robust and scalable platform for deploying and managing agents.
 
-## Contract Development
-
-For instructions on building or interacting with the associated smart contracts, refer to [Contract Development](docs/contracts.md).
 
 ## Acknowledgements
 
