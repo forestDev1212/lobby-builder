@@ -123,9 +123,6 @@ importers:
       '@goat-sdk/core':
         specifier: 0.3.4
         version: 0.3.4(bufferutil@4.0.9)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10)
-      '@safe-global/api-kit':
-        specifier: 2.5.9
-        version: 2.5.9(bufferutil@4.0.9)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10)(zod@3.23.8)
       '@safe-global/protocol-kit':
         specifier: 5.2.2
         version: 5.2.2(bufferutil@4.0.9)(typescript@5.7.3)(utf-8-validate@5.0.10)(zod@3.23.8)
