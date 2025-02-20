@@ -1,6 +1,5 @@
 import {
   type Character,
-  IAgentRuntime,
   ModelProviderName,
   elizaLogger,
   settings,

@@ -9,7 +9,7 @@ import { elizaLogger, stringToUuid } from "@elizaos/core";
 import net from "net";
 
 import { ROOMS } from "./config/index.ts";
-import { RoomKey } from "./types";
+import type { RoomKey } from "./types.ts";
 
 /**
  * Checks whether a port is available.
