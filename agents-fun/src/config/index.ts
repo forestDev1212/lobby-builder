@@ -157,6 +157,23 @@ export function fetchSafeAddress(): string {
   }
 }
 
+const SUBGRAPH_URLS = {
+  USER_SUBGRAPH_URL:
+    "https://subgraph.staging.autonolas.tech/subgraphs/name/autonolas-base" as string,
+  MEME_SUBGRAPH_URL:
+    "https://agentsfun-indexer-production.up.railway.app" as string,
+} as const;
+
+const CONTRACTS = {
+  MEME_FACTORY_CONTRACT: "0x82a9c823332518c32a0c0edc050ef00934cf04d4" as string,
+} as const;
+
+const CHAINS = {
+  BASE: {
+    CHAIN_ID: "8453" as string,
+  },
+} as const;
+
 /**
  * Collects all required secrets from environment variables.
  */
@@ -173,15 +190,13 @@ export function getSecrets(safeAddress: string): Record<string, string> {
     AGENT_EOA_PK: process.env.AGENT_EOA_PK as string,
     BASE_LEDGER_RPC: process.env
       .CONNECTION_CONFIGS_CONFIG_BASE_LEDGER_RPC as string,
-    MEME_FACTORY_CONTRACT: process.env
-      .CONNECTION_CONFIGS_CONFIG_MEME_FACTORY_CONTRACT as string,
+    MEME_FACTORY_CONTRACT: CONTRACTS.MEME_FACTORY_CONTRACT as string,
     SAFE_ADDRESS_DICT: process.env
       .CONNECTION_CONFIGS_CONFIG_SAFE_CONTRACT_ADDRESSES as string,
     SAFE_ADDRESS: safeAddress,
-    SUBGRAPH_URL: process.env.CONNECTION_CONFIGS_CONFIG_SUBGRAPH_URL as string,
-    MEME_SUBGRAPH_URL: process.env
-      .CONNECTION_CONFIGS_CONFIG_MEME_SUBGRAPH_URL as string,
-    CHAIN_ID: process.env.CONNECTION_CONFIGS_CONFIG_BASE_CHAIN_ID as string,
+    SUBGRAPH_URL: SUBGRAPH_URLS.USER_SUBGRAPH_URL as string,
+    MEME_SUBGRAPH_URL: SUBGRAPH_URLS.MEME_SUBGRAPH_URL as string,
+    CHAIN_ID: CHAINS.BASE.CHAIN_ID as string,
   };
 }
 
