@@ -20,6 +20,9 @@ import {
   getTokenForProvider,
   loadCharacters,
   parseArguments,
+  loadCharacterFromArgs,
+  fetchSafeAddress,
+  getSecrets,
 } from "./config/index.ts";
 import {
   getAvailablePort,
@@ -96,112 +99,58 @@ async function runAgentAutonomously(
 }
 
 /**
- * Main entry point: loads configuration, initializes the database,
- * sets up the agent and starts the autonomous task loop.
+ * Main entry point: initializes configuration, database and agent runtime.
  */
 export async function main() {
   try {
+    // Initialize the direct client
     const directClient = new DirectClient();
-    const args = parseArguments();
+
+    // Get available server port
     const serverPort = await getAvailablePort(
       parseInt(settings.SERVER_PORT || "3000"),
     );
 
-    // Load characters from arguments
-    const charactersArg = args.characters || args.character;
-    let characters: Character[] = [];
-    console.log("charactersArgs", charactersArg);
-    if (charactersArg) {
-      characters = await loadCharacters(charactersArg);
-    }
-    console.log("characters", characters);
+    // Load and configure the character
+    const character = await loadCharacterFromArgs();
 
-    if (characters.length === 0) {
-      elizaLogger.error("No characters loaded, exiting...");
-      process.exit(1);
-    }
+    // Retrieve the safe address and assign secrets
+    const safeAddress = fetchSafeAddress();
+    character.settings.secrets = getSecrets(safeAddress);
 
-    // Configure the first character
-    const character = characters[0];
-    character.id ??= stringToUuid(character.name);
-    character.username ??= character.name;
-    character.settings ??= {};
+    // Additional logging details
+    elizaLogger.success(`Character Name: ${character.name}`);
+    elizaLogger.success(`Character Bio: ${character.bio}`);
 
-    // Parse safe address configuration from environment variable
-    const safeAddressDict = process.env
-      .CONNECTION_CONFIGS_CONFIG_SAFE_CONTRACT_ADDRESSES as string;
-    let safeAddress = "";
-    if (safeAddressDict) {
-      try {
-        const safeAddressObj = JSON.parse(safeAddressDict);
-        if (safeAddressObj.base) {
-          safeAddress = safeAddressObj.base;
-        } else {
-          console.error("Base key not found in the safe address dictionary.");
-          process.exit(1);
-        }
-      } catch (error) {
-        console.error("Failed to parse safe address dictionary:", error);
-        process.exit(1);
-      }
-    } else {
-      console.error(
-        "Safe address dictionary is not defined in the environment variables.",
-      );
-      process.exit(1);
-    }
-
-    // Set character secrets and model settings
-    character.settings.secrets = {
-      OPENAI_API_KEY: process.env
-        .CONNECTION_CONFIGS_CONFIG_OPENAI_API_KEY as string,
-      TWITTER_USERNAME: process.env
-        .CONNECTION_CONFIGS_CONFIG_TWITTER_USERNAME as string,
-      TWITTER_PASSWORD: process.env
-        .CONNECTION_CONFIGS_CONFIG_TWITTER_PASSWORD as string,
-      TWITTER_EMAIL: process.env
-        .CONNECTION_CONFIGS_CONFIG_TWITTER_EMAIL as string,
-      AGENT_EOA_PK: process.env.AGENT_EOA_PK as string,
-      BASE_LEDGER_RPC: process.env
-        .CONNECTION_CONFIGS_CONFIG_BASE_LEDGER_RPC as string,
-      MEME_FACTORY_CONTRACT: process.env
-        .CONNECTION_CONFIGS_CONFIG_MEME_FACTORY_CONTRACT as string,
-      SAFE_ADDRESS_DICT: safeAddressDict,
-      SAFE_ADDRESS: safeAddress,
-      SUBGRAPH_URL: process.env
-        .CONNECTION_CONFIGS_CONFIG_SUBGRAPH_URL as string,
-      MEME_SUBGRAPH_URL: process.env
-        .CONNECTION_CONFIGS_CONFIG_MEME_SUBGRAPH_URL as string,
-      CHAIN_ID: process.env.CONNECTION_CONFIGS_CONFIG_BASE_CHAIN_ID as string,
-    };
-
-    console.log("Current character settings", character.settings.secrets);
-
+    // Define model provider and specific model settings
     character.modelProvider = ModelProviderName.OPENAI;
-    character.settings.model = "gpt-4o-mini";
+    character.settings.model = "gpt-4o";
     character.settings.modelConfig = {
       temperature: 0.5,
       maxInputTokens: 2000,
+      max_response_length: 1000,
     };
 
+    // Generate token for current provider
     const token = getTokenForProvider(
       character.modelProvider,
       character,
     ) as string;
     elizaLogger.success("Token initialized");
 
-    // Initialize database and cache
+    // Initialize the database and cache
     const dataDir = path.join(__dirname, "data");
     const db = initializeDatabase(dataDir);
-    elizaLogger.info("Database initialized");
+    elizaLogger.success("Database initialized");
     await db.init();
 
     const cache = initializeDbCache(character, db);
     const runtime = createAgent(character, db, cache, token);
     await runtime.initialize();
 
+    // Start directClient server and launch agent's autonomous loop
     directClient.start(serverPort);
-    await runAgentAutonomously(runtime, directClient as DirectClient);
+    await runAgentAutonomously(runtime, directClient);
 
     elizaLogger.success(`Agent ${runtime.agentId} initialized and running!`);
   } catch (error) {

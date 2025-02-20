@@ -1,4 +1,10 @@
-import type { Action, AgentRuntime, Memory, Plugin } from "@elizaos/core";
+import type {
+  Action,
+  AgentRuntime,
+  Character,
+  Memory,
+  Plugin,
+} from "@elizaos/core";
 import { elizaLogger, stringToUuid } from "@elizaos/core";
 import net from "net";
 

@@ -1,7 +1,10 @@
 import {
   type Character,
+  IAgentRuntime,
   ModelProviderName,
+  elizaLogger,
   settings,
+  stringToUuid,
   validateCharacterConfig,
 } from "@elizaos/core";
 import fs from "fs";
@@ -106,6 +109,81 @@ export function getTokenForProvider(
     default:
       return undefined;
   }
+}
+
+/**
+ * Loads and configures the character from CLI arguments.
+ */
+export async function loadCharacterFromArgs(): Promise<Character> {
+  const args = parseArguments();
+  const charactersArg = args.characters || args.character;
+  let characters: Character[] = [];
+  if (charactersArg) {
+    characters = await loadCharacters(charactersArg);
+  }
+  if (characters.length === 0) {
+    elizaLogger.error("No characters loaded, exiting...");
+    process.exit(1);
+  }
+  // Use the first character from the list as the active character.
+  const character = characters[0];
+  character.id ??= stringToUuid(character.name);
+  character.username ??= character.name;
+  character.settings ??= {};
+  return character;
+}
+
+/**
+ * Retrieves the safe contract address from the environment variable.
+ */
+export function fetchSafeAddress(): string {
+  const safeAddressDict =
+    process.env.CONNECTION_CONFIGS_CONFIG_SAFE_CONTRACT_ADDRESSES;
+  if (!safeAddressDict) {
+    console.error(
+      "Safe address dictionary is not defined in the environment variables.",
+    );
+    process.exit(1);
+  }
+  try {
+    const safeAddressObj = JSON.parse(safeAddressDict);
+    if (safeAddressObj.base) return safeAddressObj.base;
+    else {
+      console.error("Base key not found in the safe address dictionary.");
+      process.exit(1);
+    }
+  } catch (error) {
+    console.error("Failed to parse safe address dictionary:", error);
+    process.exit(1);
+  }
+}
+
+/**
+ * Collects all required secrets from environment variables.
+ */
+export function getSecrets(safeAddress: string): Record<string, string> {
+  return {
+    OPENAI_API_KEY: process.env
+      .CONNECTION_CONFIGS_CONFIG_OPENAI_API_KEY as string,
+    TWITTER_USERNAME: process.env
+      .CONNECTION_CONFIGS_CONFIG_TWITTER_USERNAME as string,
+    TWITTER_PASSWORD: process.env
+      .CONNECTION_CONFIGS_CONFIG_TWITTER_PASSWORD as string,
+    TWITTER_EMAIL: process.env
+      .CONNECTION_CONFIGS_CONFIG_TWITTER_EMAIL as string,
+    AGENT_EOA_PK: process.env.AGENT_EOA_PK as string,
+    BASE_LEDGER_RPC: process.env
+      .CONNECTION_CONFIGS_CONFIG_BASE_LEDGER_RPC as string,
+    MEME_FACTORY_CONTRACT: process.env
+      .CONNECTION_CONFIGS_CONFIG_MEME_FACTORY_CONTRACT as string,
+    SAFE_ADDRESS_DICT: process.env
+      .CONNECTION_CONFIGS_CONFIG_SAFE_CONTRACT_ADDRESSES as string,
+    SAFE_ADDRESS: safeAddress,
+    SUBGRAPH_URL: process.env.CONNECTION_CONFIGS_CONFIG_SUBGRAPH_URL as string,
+    MEME_SUBGRAPH_URL: process.env
+      .CONNECTION_CONFIGS_CONFIG_MEME_SUBGRAPH_URL as string,
+    CHAIN_ID: process.env.CONNECTION_CONFIGS_CONFIG_BASE_CHAIN_ID as string,
+  };
 }
 
 export const ROOMS = {
