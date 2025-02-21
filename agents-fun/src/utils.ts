@@ -84,6 +84,12 @@ export async function triggerPluginActions(
     undefined,
   );
   if (result) {
+    const checkSafeAddress = runtime.getSetting("SAFE_ADDRESS");
+    if (!checkSafeAddress) {
+      elizaLogger.warn("SAFE_ADDRESS setting is not set");
+      elizaLogger.warn("Token Interaction behaviour won't be executed");
+      return false;
+    }
     elizaLogger.log(
       `[Trigger] Tweet was successful. Executing meme interaction...`,
     );

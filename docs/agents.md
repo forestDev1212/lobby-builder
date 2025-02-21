@@ -10,7 +10,7 @@
 - [Set Docker permissions so you can run containers as non-root user](https://docs.docker.com/engine/install/linux-postinstall/)
 
 
-## Run you own agent
+## Run your own agent
 
 ### Get the code
 
@@ -38,6 +38,7 @@
   ```
    pnpm build:agent
    ```
+## RUN USING OLAS SDK(Provides a deployed safe with contracts)
 
 #### Prepare the data
 
@@ -45,3 +46,23 @@
 2. Follow the steps mentioned in [Olas-sdk-docs](https://github.com/valory-xyz/docs/blob/main/docs/olas-sdk/index.md), to build a olas agent using [Olas SDK Starter](https://github.com/valory-xyz/olas-sdk-starter/blob/main/README.md) and the docker image of the agent.
 
 For the Eliza Memeooorr agent we support agentic runs using olas-sdk. Which provides a set of tools to build and run agents, with a automatic safe account creation and management.
+
+## RUN LOCALLY
+
+> :warning: **Warning**
+> Agent won't perform token interaction behaviour unless you deploy your own safe on base network with the required contracts.
+
+#### Prepare the data
+
+1. Edit the character file in agents-fun/characters/eliza.character.json and update the system, bio and lore section as per your liking.
+2. Prepare the env
+  ```
+  cp .env.example .env
+  ```
+
+
+3. Run the docker file built previously, with the env file:
+
+```
+docker run -it --rm --env-file .env <IMAGE_NAME>
+```
