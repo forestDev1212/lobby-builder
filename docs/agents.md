@@ -25,16 +25,18 @@
     git submodule update --init --recursive
     ```
 
-2. Create the virtual environment:
+2. Install dependencies:
 
     ```
     cd agents-fun-eliza
     pnpm install
     ```
 
-3. Build the packages:
+3. Define your character description in agents-fun/characters/eliza.character.json and update the system, bio and lore section as per your liking.
+
+4. Build and push the agent to your docker hub :
   ```
-   pnpm build
+   pnpm build:agent
    ```
 
 #### Prepare the data

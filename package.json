@@ -5,6 +5,7 @@
   "author": "",
   "scripts": {
     "build": "lerna run build --stream",
+    "build:agent": "./scripts/build.sh",
     "start": "pnpm --filter \"agents-fun\" start --isRoot",
     "start:with-args": "tsc && node --loader ts-node/esm src/index.ts --",
     "clean": "lerna clean",
