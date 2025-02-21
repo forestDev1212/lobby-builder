@@ -2,6 +2,7 @@
 
 # Navigate to the script's directory
 #
+echo "This script is used for running the agent in olas operate environment inside a docker container"
 echo "Reading wallet and safe address from agents folder"
 # wallet ovt key will be present inside the /agent_key/ethereum_private_key.txt folder
 # safe address will be present inside the /agent_key/safe_address.txt folder

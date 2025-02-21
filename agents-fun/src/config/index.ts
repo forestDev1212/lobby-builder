@@ -139,10 +139,10 @@ export function fetchSafeAddress(): string {
   const safeAddressDict =
     process.env.CONNECTION_CONFIGS_CONFIG_SAFE_CONTRACT_ADDRESSES;
   if (!safeAddressDict) {
-    console.error(
+    console.warn(
       "Safe address dictionary is not defined in the environment variables.",
     );
-    process.exit(1);
+    return "";
   }
   try {
     const safeAddressObj = JSON.parse(safeAddressDict);

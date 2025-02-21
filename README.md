@@ -29,7 +29,7 @@ For now, the agent uses ETH exclusively; support for other networks (such as CEL
 ## How It Works
 
 1. **Download the Quickstart**
-   Get started quickly by downloading the project and installing its dependencies.
+  Please refer to the [Agent Quickstart Guide](docs/agents.md).
 
 2. **Set Up Your Environment**
    - Fund your agent with ETH.
