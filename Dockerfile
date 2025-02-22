@@ -45,7 +45,7 @@ FROM node:23.6.0-slim
 # Install runtime dependencies if needed
 RUN npm install -g pnpm@9.15.1
 RUN apt-get update && \
-    apt-get install -y git python3 && \
+    apt-get install -y git python3 wget && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
@@ -72,4 +72,4 @@ EXPOSE 3000
 ENTRYPOINT [ "/app/scripts/run.sh" ]
 
 # Add health check
-HEALTHCHECK --interval=30s --timeout=300s --start-period=50s --retries=30 CMD curl -f http://localhost:3000 || exit 1
+HEALTHCHECK --interval=30s --timeout=300s --start-period=50s --retries=30 CMD wget --spider -q http://localhost:3000 || exit 1

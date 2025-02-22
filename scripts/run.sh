@@ -15,6 +15,3 @@ env | grep '^CONNECTION_CONFIGS_CONFIG_' > .env
 echo "Running Agents fun."
 # Run pnpm start
 pnpm start
-
-
-echo "Agent Started."

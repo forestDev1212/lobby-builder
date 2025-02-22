@@ -6,11 +6,8 @@
   "scripts": {
     "build": "lerna run build --stream",
     "build:agent": "./scripts/build.sh",
-    "start": "pnpm --filter \"agents-fun\" start --isRoot",
-    "start:with-args": "tsc && node --loader ts-node/esm src/index.ts --",
-    "clean": "lerna clean",
-    "start:service:all": "pm2 start pnpm --name=\"all\" --restart-delay=3000 --max-restarts=10 -- run start:all",
-    "stop:service:all": "pm2 stop all"
+    "start": "pnpm --filter \"agents-fun\" --isRoot --non-interactive start",
+    "clean": "lerna clean"
   },
   "engines": {
     "node": ">=23"
