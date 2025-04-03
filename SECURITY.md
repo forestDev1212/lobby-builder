@@ -1,34 +1,52 @@
 # Security Policy
 
-This document outlines security procedures and general policies for the `agents-fun-eliza` project.
+This document outlines the security procedures and general policies for the `Memeliza` project.
 
-## Supported Versions
+## 📦 Supported Versions
 
-The following table shows which versions of `agents-fun-eliza` are currently being supported with security updates.
+The table below shows which versions of `Memeliza` are currently receiving security updates.
 
 | Version | Supported          |
 |---------|--------------------|
-| `n/a`   | :white_check_mark: |
-| `n/a`   | :x:                |
+| `main`  | ✅ Yes              |
+| others  | ❌ No               |
 
-## Reporting a Vulnerability
+> Note: This project is experimental and still under early development. Use in production is not advised until stable releases are published.
 
-The `agents-fun-eliza` team and community take all security bugs in `agents-fun-eliza` seriously. Thank you for improving the security of `agents-fun-eliza`. We appreciate your efforts and responsible disclosure and will make every effort to acknowledge your contributions.
+---
 
-Report security bugs by emailing `info@valory.xyz`.
+## 🔐 Reporting a Vulnerability
 
-The lead maintainer will acknowledge your email within 48 hours, and will send a more detailed response within 48 hours indicating the next steps in handling your report. After the initial reply to your report, the security team will endeavour to keep you informed of the progress towards a fix and full announcement, and may ask for additional information or guidance.
+We take security seriously — and we appreciate your help keeping `Memeliza` safe for everyone.
 
-Report security bugs in third-party modules to the person or team maintaining the module.
+If you discover a vulnerability:
 
-## Disclosure Policy
+- **Email:** `info@valory.xyz`
+- Include as much detail as possible (e.g. reproduction steps, impact, proposed fix).
+- The team will acknowledge your report within **48 hours**, and respond with next steps shortly after.
 
-When the security team receives a security bug report, they will assign it to a primary handler. This person will coordinate the fix and release process, involving the following steps:
+Please avoid publicly disclosing vulnerabilities until we’ve reviewed and addressed them.
 
-- Confirm the problem and determine the affected versions.
-- Audit code to find any potential similar problems.
-- Prepare fixes for all releases still under maintenance. These fixes will be released as fast as possible to PyPI.
+---
 
-## Comments on this Policy
+## 📣 Disclosure Process
 
-If you have suggestions on how this process could be improved please submit a pull request.
+Once a report is received:
+
+1. A core maintainer is assigned as the handler.
+2. The issue is confirmed and a fix is prepared for supported versions.
+3. The team audits related parts of the codebase for similar issues.
+4. A patch is released as soon as possible and details are disclosed responsibly.
+
+We aim to be transparent and collaborative through the entire process.
+
+---
+
+## 💬 Feedback
+
+Got thoughts or improvements for this policy?  
+Please open a [pull request](https://github.com/forestDev1212/memeliza/pulls) or submit an issue.
+
+---
+
+Thanks for helping improve the security of **Memeliza**. 🧠💥
