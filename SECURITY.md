@@ -21,7 +21,6 @@ We take security seriously — and we appreciate your help keeping `Memeliza` sa
 
 If you discover a vulnerability:
 
-- **Email:** `info@valory.xyz`
 - Include as much detail as possible (e.g. reproduction steps, impact, proposed fix).
 - The team will acknowledge your report within **48 hours**, and respond with next steps shortly after.
 
